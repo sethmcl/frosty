@@ -36,5 +36,8 @@ echo $NEW_VERSION > $ROOT/src/version
 git add $ROOT/src/version
 git commit -m "Release version $NEW_VERSION"
 git tag $NEW_VERSION
+git tag -d latest
+git tag latest
+git push origin :refs/tags/latest
 git push origin master --tags
 
