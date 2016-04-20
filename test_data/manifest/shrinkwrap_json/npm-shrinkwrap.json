@@ -1,0 +1,28 @@
+{
+  "name": "foo",
+  "version": "1.0.0",
+  "dependencies": {
+    "buffer": {
+      "version": "4.4.0",
+      "from": "buffer@*",
+      "resolved": "https://registry.npmjs.org/buffer/-/buffer-4.4.0.tgz",
+      "dependencies": {
+        "base64-js": {
+          "version": "1.0.2",
+          "from": "base64-js@>=1.0.2 <2.0.0",
+          "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-1.0.2.tgz"
+        },
+        "ieee754": {
+          "version": "1.1.6",
+          "from": "ieee754@>=1.1.4 <2.0.0",
+          "resolved": "https://registry.npmjs.org/ieee754/-/ieee754-1.1.6.tgz"
+        },
+        "isarray": {
+          "version": "1.0.0",
+          "from": "isarray@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+        }
+      }
+    }
+  }
+}

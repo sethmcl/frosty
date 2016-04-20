@@ -1,0 +1,2 @@
+class MissingNpmShrinkwrap(Exception):
+    pass

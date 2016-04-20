@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# https://github.com/sethmcl/frosty
+
+cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+base_dir="$(dirname $cwd)"
+
+PYTHONDONTWRITEBYTECODE=1 exec /usr/bin/python2.7 -ESs "$base_dir/src/frosty.py" "$@"
