@@ -33,5 +33,9 @@ echo
 
 curl -Ls $TAR_URL | tar xz --strip-components=1 -C "$INSTALL_DIR/cli"
 
+# Update location frosty will cache npm modules. This can be overriden
+# at runtime with the command flag `--cache-dir`.
+echo "$INSTALL_DIR/cache" > "$INSTALL_DIR/cli/src/default_cache"
+
 echo ">> install complete"
 echo ">> run frosty from $INSTALL_DIR/cli/bin/frosty"

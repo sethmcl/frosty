@@ -25,6 +25,7 @@ class Cache(object):
         self.config = config
         self.cache_dir = config.cache_dir
         self.temp_dir = os.path.join(self.cache_dir, '.temp')
+        Log.verbose('Using cache directory %s', self.cache_dir)
 
 
     def query(self, module_name, module_version):
