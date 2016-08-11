@@ -25,7 +25,7 @@ class Npm(object):
         module = '%s@%s' % (module_name, module_version)
         cmd.extend(['info', module, 'os'])
         module_os = subprocess.check_output(cmd, cwd=prefix_dir)
-        return module_os.strip() == 'darwin'
+        return module_os.strip() == "[ 'darwin' ]" or module_os.strip() == "darwin"
 
 
     def is_git_module(self, module_url):
