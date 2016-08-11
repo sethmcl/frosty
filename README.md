@@ -49,3 +49,14 @@ frosty install
   --registry [URL]     Use an alternative npm registry (default is https://registry.npmjs.org)
   --verbose            Show verbose output.
 ```
+
+## Private NPM modules
+
+If you are using private NPM modules, you may specify your NPM auth token via the `NPM_TOKEN` environment variable.
+
+```
+NPM_TOKEN=abc123 frosty install
+```
+
+This will allow frosty to authenticate with NPM and see your modules.
+

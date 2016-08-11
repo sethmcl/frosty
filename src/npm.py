@@ -20,11 +20,11 @@ class Npm(object):
         self.config = config
 
 
-    def is_module_osx_only(self, module_name, module_version):
+    def is_module_osx_only(self, module_name, module_version, prefix_dir):
         cmd = self.build_npm_cmd()
         module = '%s@%s' % (module_name, module_version)
         cmd.extend(['info', module, 'os'])
-        module_os = subprocess.check_output(cmd)
+        module_os = subprocess.check_output(cmd, cwd=prefix_dir)
         return module_os.strip() == 'darwin'
 
 
@@ -42,7 +42,7 @@ class Npm(object):
 
 
     def install(self, module_name, module_version, module_url, prefix_dir=None):
-        if not self.is_osx() and not self.is_git_module(module_url) and self.is_module_osx_only(module_name, module_version):
+        if not self.is_osx() and not self.is_git_module(module_url) and self.is_module_osx_only(module_name, module_version, prefix_dir):
             raise RuntimeError('Cannot install %s on platform %s' % (module_url, self.get_platform()))
 
         cmd = self.build_npm_cmd(prefix_dir=prefix_dir)
@@ -56,7 +56,7 @@ class Npm(object):
         while try_again:
             attempts = attempts + 1
             Log.info('Attempting to install node module %s (attempt #%s)', module_name, attempts)
-            result, error = self.try_install(cmd)
+            result, error = self.try_install(cmd, prefix_dir)
 
             if result is True and error is None:
                 try_again = False
@@ -68,9 +68,9 @@ class Npm(object):
         return os.path.join(prefix_dir, 'node_modules', module_name)
 
 
-    def try_install(self, cmd):
+    def try_install(self, cmd, prefix_dir):
         try:
-            subprocess.check_output(cmd)
+            subprocess.check_output(cmd, cwd=prefix_dir)
             return True, None
         except subprocess.CalledProcessError as e:
             return False, e

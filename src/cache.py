@@ -25,7 +25,20 @@ class Cache(object):
         self.config = config
         self.cache_dir = config.cache_dir
         self.temp_dir = os.path.join(self.cache_dir, '.temp')
+
+        if 'NPM_TOKEN' in os.environ:
+            self.write_npm_rc(os.environ['NPM_TOKEN'])
+
         Log.verbose('Using cache directory %s', self.cache_dir)
+
+
+    def write_npm_rc(self, token):
+        rcfile = os.path.join(self.temp_dir, '.npmrc')
+        # rcfile = os.path.expandvars('$HOME/.npmrc')
+        data = '//registry.npmjs.org/:_authToken=%s\n' % token
+        Log.verbose('writing token %s to %s', token, rcfile)
+        with open(rcfile, 'w') as file:
+            file.write(data)
 
 
     def query(self, module_name, module_version):
@@ -43,6 +56,7 @@ class Cache(object):
     def add(self, module_name, module_version, module_url):
         # remove temporary node_modules directory between npm installs to avoid peer dependency issues
         temp_node_modules = os.path.join(self.temp_dir, 'node_modules')
+
         if os.path.isdir(temp_node_modules):
             shutil.rmtree(temp_node_modules)
 
@@ -58,7 +72,6 @@ class Cache(object):
             raise e
 
         module_paths = [temp_module_dir] + Npm.get_module_paths(temp_module_dir)
-
         for module in module_paths:
             self.copy_module_to_cache(module)
 
