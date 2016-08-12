@@ -26,6 +26,13 @@ class Cache(object):
         self.cache_dir = config.cache_dir
         self.temp_dir = os.path.join(self.cache_dir, '.temp')
 
+
+        if not os.path.exists(self.cache_dir):
+            os.makedirs(self.cache_dir)
+
+        if not os.path.exists(self.temp_dir):
+            os.makedirs(self.temp_dir)
+
         if 'NPM_TOKEN' in os.environ:
             self.write_npm_rc(os.environ['NPM_TOKEN'])
 
